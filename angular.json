@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular100days"
+    }
+  },
+  "defaultProject": "angular100days",
+  "cli": {
+    "analytics": "a6e8e9ab-4108-41c6-b3c2-44a40acf7f09"
+  }
 }
