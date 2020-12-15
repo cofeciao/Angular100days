@@ -12,8 +12,7 @@ import {Component,Output,EventEmitter} from "@angular/core";
 export class ChildComponent {
 
   @Output() myClick = new EventEmitter<boolean>();
-
-  value : number = 0;
+  value: number = 0;
   // add(){
   //   this.myClick.emit(true);
   // }

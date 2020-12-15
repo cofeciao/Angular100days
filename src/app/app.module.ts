@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { AuthorListComponent } from './author-list/author-list.component';
@@ -12,6 +13,10 @@ import { ListPersonComponent } from './list-person/list-person.component';
 import { PersonComponent } from './person/person.component';
 import {ParentComponent} from "./parent.component";
 import {ChildComponent} from "./child.component";
+import { LearnPipeComponent } from './learn-pipe/learn-pipe.component';
+import { RoundPipe } from './round.pipe';
+import {IpComponent} from './ip.component';
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +30,14 @@ import {ChildComponent} from "./child.component";
     ListPersonComponent,
     PersonComponent,
     ParentComponent,
-    ChildComponent
+    ChildComponent,
+    LearnPipeComponent,
+    RoundPipe,
+    IpComponent,
+    WeatherComponent
   ],
   imports: [
-    BrowserModule , FormsModule
+    BrowserModule , FormsModule, HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
