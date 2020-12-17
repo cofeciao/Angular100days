@@ -1,4 +1,4 @@
-<h3>{{cityName === '' ? 'Enter your city name' : (cityName + ' is now ' + wea)}}</h3>
+<h3>{{ getMessage() }}</h3>
 <input type="text" placeholder="Enter your city name" [(ngModel)]="textCityname">
 <br><br>
 <button (click)="getWeather()">Get Weather</button>
