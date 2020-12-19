@@ -6,26 +6,37 @@ import {Component} from "@angular/core";
     <form (ngSubmit)="onSubmit(SignInForm)" #SignInForm="ngForm">
       <tr>
         <td>
-          <input type="text" ngModel #txtEmail = ngModel placeholder="Enter your username" name="email" required>
+          <input type="text" ngModel #txtEmail="ngModel" placeholder="Enter your username" name="email" required email>
         </td>
         <td>
-          <p *ngIf="txtEmail.invalid && txtEmail.touched">
-            Email is invalid
-          </p>
+          <div *ngIf="txtEmail.errors?.required && txtEmail.touched">
+            <p [ngStyle]="{'font-size' : '12px'}">Email is required</p>
+          </div>
+          <div *ngIf="txtEmail.errors?.email && txtEmail.touched">
+            <p [ngStyle]="{'font-size' : '12px'}">Email is invalid</p>
+          </div>
         </td>
       </tr>
       <tr>
         <td>
-          <input type="password" ngModel #txtPassword = ngModel placeholder="Enter your password" name="password" required>
+          <input type="password" ngModel #txtPassword = "ngModel" placeholder="Enter your password" name="password" required>
         </td>
         <td>
-          <p *ngIf="txtPassword.touched && txtPassword.invalid">
-            password is blank
+          <p [ngStyle]="{'font-size': '12px'}" *ngIf="txtPassword.touched && txtPassword.errors?.required">
+            Password is blank
           </p>
         </td>
       </tr>
+      <div ngModelGroup="subjects">
+        <label [ngStyle]="{'font-size': '12px'}"><input [ngModel]="false" type="checkbox" name="Remember">Remember</label>
+        <label [ngStyle]="{'font-size': '12px'}"><input [ngModel]="false" type="checkbox" name="Note">Note</label>
+        <label [ngStyle]="{'font-size': '12px'}"><input [ngModel]="false" type="checkbox" name="Write">Write</label>
+      </div>
+      <br>
       <button [disabled]="SignInForm.invalid">Submit</button>
     </form>
+    <p>{{ txtEmail.errors | json }}</p>
+    <p>{{ SignInForm.value | json }}</p>
   `,
   styles: [`input.ng-invalid.ng-touched {border: 1px solid red}`]
 })
