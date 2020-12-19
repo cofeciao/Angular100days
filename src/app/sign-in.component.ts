@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import { HttpClient , HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-sign-in',
@@ -17,6 +18,7 @@ import {Component} from "@angular/core";
           </div>
         </td>
       </tr>
+      <br>
       <tr>
         <td>
           <input type="password" ngModel #txtPassword = "ngModel" placeholder="Enter your password" name="password" required>
@@ -34,6 +36,7 @@ import {Component} from "@angular/core";
       </div>
       <br>
       <button [disabled]="SignInForm.invalid">Submit</button>
+      <button (click)="postToYii2()">POST</button>
     </form>
     <p>{{ txtEmail.errors | json }}</p>
     <p>{{ SignInForm.value | json }}</p>
@@ -42,7 +45,20 @@ import {Component} from "@angular/core";
 })
 
 export class SignInComponent {
+
+  constructor(private http : HttpClient) {
+  }
+
   onSubmit(SignInForm){
     console.log(SignInForm);
+  }
+
+  postToYii2(){
+    const url = 'https://erp.iwayclub.vn/api/v2/app/login-customer';
+    const headers = new HttpHeaders().set('x-api-key', 'rcc6aC6HfUpenPJs9OP49xqysRJTmpbvfXgIpThw');
+    const body = JSON.stringify({'phone': '0798263419', 'password': 123123});
+    this.http.post(url,body,{headers: headers}).toPromise()
+      .then(res => res)
+      .then(res => console.log(res));
   }
 }
