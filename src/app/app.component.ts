@@ -16,10 +16,10 @@ export class AppComponent {
   @ViewChild('nameInput',{static:true}) nameInput: ElementRef<HTMLInputElement>;
 
   ngOnInit(){
-    setTimeout(() => {
-      this.nameInput.nativeElement.focus();
-    }, 3000)
-    console.log('Onit',this.toggleComp)
+    // setTimeout(() => {
+    //   this.nameInput.nativeElement.focus();
+    // }, 3000)
+    // console.log('Onit');
   }
 
   ngAfterViewInit(){
