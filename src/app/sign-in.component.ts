@@ -56,20 +56,20 @@ export class SignInComponent {
 
   postToYii2(SignInForm) {
     const url = 'http://iway.tm/api/v2/app/login-customer';
-    const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const header = new HttpHeaders().set('x-api-key', 'rcc6aC6HfUpenPJs9OP49xqysRJTmpbvfXgIpThw');
     // const body =  ;//JSON.stringify(SignInForm.value);
-    const body = JSON.stringify(SignInForm.value);
+    const body = {phone: SignInForm.value.phone,password: SignInForm.value.password};
     this.http.post(url, body, {headers: header}).subscribe(
       (data) => {
         console.log(data);
       },
-      // (err: HttpErrorResponse) => {
-      //   if (err.error instanceof Error) {
-      //     console.log('Client-side error occured.');
-      //   } else {
-      //     console.log('Server-side error occured.');
-      //   }
-      // }
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          console.log('Client-side error occured.');
+        } else {
+          console.log('Server-side error occured.');
+        }
+      }
     );
     // .toPromise()
     // .then(res => res);
