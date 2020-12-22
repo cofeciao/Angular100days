@@ -50,15 +50,15 @@ export class SignInComponent {
   }
 
   onSubmit(SignInForm){
-    console.log(SignInForm);
+    // console.log(SignInForm);
   }
 
   postToYii2(){
-    const url = 'https://erp.iwayclub.vn/api/v2/app/login-customer';
+    const url = 'http://iway.tm/api/v2/app/login-customer';
     const headers = new HttpHeaders().set('x-api-key', 'rcc6aC6HfUpenPJs9OP49xqysRJTmpbvfXgIpThw');
-    const body = JSON.stringify({'phone': '0798263419', 'password': 123123});
+    const body = JSON.stringify({ 'phone': '0798263419', 'password': 123123});
     this.http.post(url,body,{headers: headers}).toPromise()
-      .then(res => res)
-      .then(res => console.log(res));
+      .then(res => res);
+      // .then(res => console.log(res));
   }
 }
