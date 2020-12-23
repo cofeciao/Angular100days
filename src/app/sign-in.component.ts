@@ -72,9 +72,9 @@ export class SignInComponent {
       // }
     );
 
-    const abc = this.http.get('http://iway.tm/api/v2/app/show-list-articles');
-    abc.subscribe((data) => {
-      console.log(data);
-    });
+    // const abc = this.http.get('http://iway.tm/api/v2/app/show-list-articles');
+    // abc.subscribe((data) => {
+    //   console.log(data);
+    // });
   }
 }
