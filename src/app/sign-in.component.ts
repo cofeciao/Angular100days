@@ -50,6 +50,7 @@ export class SignInComponent {
 
   constructor(private http: HttpClient) {
   }
+
   onSubmit(SignInForm) {
     console.log(SignInForm.value);
   }
@@ -57,22 +58,23 @@ export class SignInComponent {
   postToYii2(SignInForm) {
     const url = 'http://iway.tm/api/v2/app/login-customer';
     const header = new HttpHeaders().set('x-api-key', 'rcc6aC6HfUpenPJs9OP49xqysRJTmpbvfXgIpThw');
-    // const body =  ;//JSON.stringify(SignInForm.value);
-    const body = {phone: SignInForm.value.phone,password: SignInForm.value.password};
+    const body = SignInForm.value;
     this.http.post(url, body, {headers: header}).subscribe(
       (data) => {
         console.log(data);
       },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          console.log('Client-side error occured.');
-        } else {
-          console.log('Server-side error occured.');
-        }
-      }
+      // (err: HttpErrorResponse) => {
+      //   if (err.error instanceof Error) {
+      //     console.log('Client-side error occured.');
+      //   } else {
+      //     console.log('Server-side error occured.');
+      //   }
+      // }
     );
-    // .toPromise()
-    // .then(res => res);
-    // .then(res => console.log(res));
+
+    const abc = this.http.get('http://iway.tm/api/v2/app/show-list-articles');
+    abc.subscribe((data) => {
+      console.log(data);
+    });
   }
 }
