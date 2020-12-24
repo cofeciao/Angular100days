@@ -6,8 +6,8 @@ import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
   selector: 'app-sign-in',
   template: `
     <form (ngSubmit)="onSubmit(SignInForm)" [formGroup]="SignInForm">
-      <input type="text" placeholder="Enter your username" formControlName='phone'>
-      <p *ngIf="SignInForm.get('phone').invalid && SignInForm.get('phone').touched">Email is invalid</p>
+      <input type="text" placeholder="Enter your username" formControlName='email>
+      <p *ngIf="SignInForm.get('email').invalid && SignInForm.get('email').touched">Email is invalid</p>
       <br>
       <input type="password" placeholder="Enter your password" formControlName='password'>
         <div formGroupName="subjects">
@@ -19,6 +19,7 @@ import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
       <button [disabled]="SignInForm.invalid">Submit</button>
       <button (click)="postToYii2(SignInForm)">POST</button>
     </form>
+<p>{{SignInForm.controls.email.errors | json}}</p>
     <p>{{ SignInForm.errors | json }}</p>
     <p>{{ SignInForm.value | json }}</p>
   `,
@@ -36,9 +37,16 @@ export class SignInComponent implements OnInit{
     console.log(SignInForm.value);
   }
 
+  gmailValidator(formControl : FormControl){
+    if (formControl.value.includes('@gmail.com')){
+      return null;
+    }
+    return {gmail: true};
+  }
+
   ngOnInit() {
     this.SignInForm = this.fb.group({
-      phone : ['', Validators.required],
+      email: ['', [Validators.required,this.gmailValidator]],
       password: ['',Validators.required],
       subjects: this.fb.group({
         remember: false,
