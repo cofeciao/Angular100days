@@ -7,7 +7,7 @@ import { AuthorListComponent } from './author-list/author-list.component';
 import { AuthorDetailComponent } from './author-detail/author-detail.component';
 import {AuthorDetailsComponent} from './authors/author-detail.component';
 import {AuthorListsComponent} from "./authors/author-list.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule,} from '@angular/forms';
 import {ToggleComponent} from "./toggle/toggle.component";
 import { ListPersonComponent } from './list-person/list-person.component';
 import { PersonComponent } from './person/person.component';
@@ -37,10 +37,10 @@ import {SignInComponent} from './sign-in.component';
     RoundPipe,
     IpComponent,
     WeatherComponent,
-    SignInComponent
+    SignInComponent,
   ],
   imports: [
-    BrowserModule , FormsModule, HttpClientModule
+    BrowserModule , FormsModule, HttpClientModule, ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,44 +1,25 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
   template: `
-    <form (ngSubmit)="onSubmit(SignInForm)" #SignInForm="ngForm">
-      <tr>
-        <td>
-          <input type="text" ngModel #txtEmail="ngModel" placeholder="Enter your username" name="phone" required>
-        </td>
-        <td>
-          <div *ngIf="txtEmail.errors?.required && txtEmail.touched">
-            <p [ngStyle]="{'font-size' : '12px'}">Email is required</p>
-          </div>
-          <div *ngIf="txtEmail.errors?.email && txtEmail.touched">
-            <p [ngStyle]="{'font-size' : '12px'}">Email is invalid</p>
-          </div>
-        </td>
-      </tr>
+    <form (ngSubmit)="onSubmit(SignInForm)" [formGroup]="SignInForm">
+      <input type="text" placeholder="Enter your username" formControlName='phone'>
+      <p *ngIf="SignInForm.get('phone').invalid && SignInForm.get('phone').touched">Email is invalid</p>
       <br>
-      <tr>
-        <td>
-          <input type="password" ngModel #txtPassword="ngModel" placeholder="Enter your password" name="password" required>
-        </td>
-        <td>
-          <p [ngStyle]="{'font-size': '12px'}" *ngIf="txtPassword.touched && txtPassword.errors?.required">
-            Password is blank
-          </p>
-        </td>
-      </tr>
-      <!--      <div ngModelGroup="subjects">-->
-      <!--        <label [ngStyle]="{'font-size': '12px'}"><input [ngModel]="false" type="checkbox" name="Remember">Remember</label>-->
-      <!--        <label [ngStyle]="{'font-size': '12px'}"><input [ngModel]="false" type="checkbox" name="Note">Note</label>-->
-      <!--        <label [ngStyle]="{'font-size': '12px'}"><input [ngModel]="false" type="checkbox" name="Write">Write</label>-->
-      <!--      </div>-->
+      <input type="password" placeholder="Enter your password" formControlName='password'>
+        <div formGroupName="subjects">
+          <label [ngStyle]="{'font-size': '12px'}"><input type="checkbox" formControlName="remember">Remember</label>
+          <label [ngStyle]="{'font-size': '12px'}"><input type="checkbox" formControlName="note">Note</label>
+          <label [ngStyle]="{'font-size': '12px'}"><input type="checkbox" formControlName="write">Write</label>
+        </div>
       <br>
       <button [disabled]="SignInForm.invalid">Submit</button>
       <button (click)="postToYii2(SignInForm)">POST</button>
     </form>
-    <p>{{ txtEmail.errors | json }}</p>
+    <p>{{ SignInForm.errors | json }}</p>
     <p>{{ SignInForm.value | json }}</p>
   `,
   styles: [`input.ng-invalid.ng-touched {
@@ -46,23 +27,44 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
   }`]
 })
 
-export class SignInComponent {
-
-  constructor(private http: HttpClient) {
+export class SignInComponent implements OnInit{
+  SignInForm: FormGroup;
+  constructor(private http: HttpClient, private fb: FormBuilder) {
   }
 
   onSubmit(SignInForm) {
     console.log(SignInForm.value);
   }
 
+  ngOnInit() {
+    this.SignInForm = this.fb.group({
+      phone : ['', Validators.required],
+      password: ['',Validators.required],
+      subjects: this.fb.group({
+        remember: false,
+        note: false,
+        write: false
+      }),
+    });
+  }
+
   postToYii2(SignInForm) {
-    const url = 'http://iway.tm/api/v2/app/login-customer';
-    const header = new HttpHeaders().set('x-api-key', 'rcc6aC6HfUpenPJs9OP49xqysRJTmpbvfXgIpThw');
-    const body = SignInForm.value;
-    this.http.post(url, body, {headers: header}).subscribe(
-      (data) => {
-        console.log(data);
-      },
+    const url = 'http://iway.tm/api/v2/app/forgot-password';
+    // const header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        charset: 'UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    const body: any = {phone: '0798263419'};
+
+    // console.log(typeof body);
+    // this.http.post(url, body, httpOptions).subscribe(
+    //   (data) => {
+    //     console.log(data);
+    //   },
       // (err: HttpErrorResponse) => {
       //   if (err.error instanceof Error) {
       //     console.log('Client-side error occured.');
@@ -70,7 +72,7 @@ export class SignInComponent {
       //     console.log('Server-side error occured.');
       //   }
       // }
-    );
+    // );
 
     // const abc = this.http.get('http://iway.tm/api/v2/app/show-list-articles');
     // abc.subscribe((data) => {
