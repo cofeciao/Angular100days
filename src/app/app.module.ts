@@ -18,6 +18,7 @@ import { RoundPipe } from './round.pipe';
 import {IpComponent} from './ip.component';
 import { WeatherComponent } from './weather/weather.component';
 import {SignInComponent} from './sign-in.component';
+import { ShopeeComponent } from './shopee/shopee.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {SignInComponent} from './sign-in.component';
     IpComponent,
     WeatherComponent,
     SignInComponent,
+    ShopeeComponent,
   ],
   imports: [
     BrowserModule , FormsModule, HttpClientModule, ReactiveFormsModule
