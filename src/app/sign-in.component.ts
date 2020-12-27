@@ -6,7 +6,7 @@ import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
   selector: 'app-sign-in',
   template: `
     <form (ngSubmit)="onSubmit(SignInForm)" [formGroup]="SignInForm">
-      <input type="text" placeholder="Enter your username" formControlName='email>
+      <input type="text" placeholder="Enter your username" formControlName='email'>
       <p *ngIf="SignInForm.get('email').invalid && SignInForm.get('email').touched">Email is invalid</p>
       <br>
       <input type="password" placeholder="Enter your password" formControlName='password'>

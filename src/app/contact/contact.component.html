@@ -1,0 +1,4 @@
+<!--<p>contact works!</p>-->
+<p *ngFor="let contact of contacts">
+  <a routerLink="/detail/{{contact.id}}">{{contact.name}}</a>
+</p>

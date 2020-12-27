@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {WeatherService} from '../weather.service';
-import {log} from 'util';
 
 @Component({
   selector: 'app-weather',
